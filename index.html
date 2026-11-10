@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Crank &amp; Shaft Shop</title>
+<style>
+:root{--bg:#f4f4f2;--surface:#fff;--ink:#25282b;--muted:#6b7075;--line:#e3e2de;--head:#34404b;--head-ink:#fff;--accent:#c9a24a;--accent-ink:#2b2205;--price:#9a4b3c;--brand:#3d5a73;--brand-ink:#fff;--danger:#a3281c;--shadow:0 1px 3px rgba(0,0,0,.07);
+--t0:#eceff1;--t1:#f1eee8;--t2:#eceeee;--t3:#efede9;--t4:#e9edf0;
+box-sizing:border-box;padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#16191c;--surface:#1f2327;--ink:#e8eaec;--muted:#9aa1a8;--line:#2e343a;--head:#1b2025;--brand:#8fb0cc;--brand-ink:#10202e;--price:#e0a08f;--danger:#ff8a80;--shadow:none;--t0:#2a3036;--t1:#302d27;--t2:#2a2f2f;--t3:#2f2d29;--t4:#262d33}}
+:root[data-theme="dark"]{--bg:#16191c;--surface:#1f2327;--ink:#e8eaec;--muted:#9aa1a8;--line:#2e343a;--head:#1b2025;--brand:#8fb0cc;--brand-ink:#10202e;--price:#e0a08f;--danger:#ff8a80;--shadow:none;--t0:#2a3036;--t1:#302d27;--t2:#2a2f2f;--t3:#2f2d29;--t4:#262d33}
+*{box-sizing:border-box}
+html{height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Trebuchet MS","Segoe UI",system-ui,sans-serif;line-height:1.4}
+button{font:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.sr{position:absolute;left:-9999px}
+header{position:sticky;top:0;z-index:5;background:var(--head);padding:calc(12px + env(safe-area-inset-top,0px)) 16px 12px;border-bottom:1px solid rgba(255,255,255,.08)}
+.bar-top{max-width:1000px;margin:0 auto;display:flex;align-items:center;gap:14px}
+.logo{white-space:nowrap;color:var(--head-ink);font-size:1.3rem;font-weight:800;text-decoration:none;letter-spacing:-.5px}
+.logo span{color:var(--accent)}
+.search{flex:1}
+.search input{width:100%;border:2px solid transparent;border-radius:999px;padding:11px 18px;font:inherit;background:#fff;color:#25282b}
+.search input:focus{border-color:var(--accent);outline:0}
+.cart-btn{position:relative;background:rgba(255,255,255,.12);border:0;border-radius:50%;width:44px;height:44px;font-size:1.35rem;color:#fff}
+.cart-btn b{position:absolute;top:-3px;right:-3px;background:var(--accent);color:var(--accent-ink);font-size:.72rem;border-radius:99px;min-width:20px;padding:1px 5px;text-align:center}
+main{max-width:1000px;margin:0 auto;padding:16px 16px 40px}
+.hello{margin:0 0 12px;color:var(--muted)}
+.perk{background:var(--surface);border-radius:16px;padding:12px 16px;margin-bottom:14px;font-size:.95rem;box-shadow:var(--shadow)}
+.track{height:10px;background:var(--bg);border-radius:99px;margin-top:8px;overflow:hidden}
+.track i{display:block;height:100%;width:0;background:var(--accent);border-radius:99px;transition:width .4s}
+.cats{display:flex;gap:8px;overflow-x:auto;padding:2px 0 14px}
+.cats button{white-space:nowrap;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:9px 18px;font-weight:600;box-shadow:var(--shadow)}
+.cats button.on{background:var(--brand);color:var(--brand-ink)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(165px,1fr));gap:14px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden;display:flex;flex-direction:column;position:relative;box-shadow:var(--shadow);transition:transform .15s}
+.pic{font-size:3rem;text-align:center;padding:26px 0;margin:8px;border-radius:8px}
+.t0{background:var(--t0)}.t1{background:var(--t1)}.t2{background:var(--t2)}.t3{background:var(--t3)}.t4{background:var(--t4)}
+.off{position:absolute;top:14px;left:14px;background:var(--surface);color:var(--price);border:1px solid var(--line);font-size:.75rem;font-weight:700;border-radius:6px;padding:1px 7px}
+.info{padding:4px 14px 14px;display:flex;flex-direction:column;gap:3px;flex:1}
+.name{font-weight:700;font-size:.95rem}
+.meta{font-size:.78rem;color:var(--muted)}
+.price{color:var(--ink);font-weight:700;font-size:1.1rem}
+.price s{color:var(--muted);font-weight:400;font-size:.8rem;margin-left:4px}
+.add{margin-top:8px;background:var(--brand);color:var(--brand-ink);border:0;border-radius:12px;padding:10px;font-weight:700}
+.add:hover{filter:brightness(1.08)}
+.add.done{background:var(--accent);color:var(--accent-ink)}
+.none{text-align:center;color:var(--muted);padding:30px}
+.legal{margin-top:34px;padding-top:18px;border-top:1px solid var(--line);text-align:center;color:var(--muted);font-size:.82rem;line-height:1.7}
+.legal b{color:var(--ink)}
+.scrim{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;z-index:8}
+.scrim.on{display:block}
+aside{position:fixed;top:0;right:0;bottom:0;width:min(400px,100%);background:var(--surface);z-index:9;transform:translateX(100%);transition:transform .25s;display:flex;flex-direction:column;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+aside.on{transform:none}
+.ah{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;border-bottom:1px solid var(--line)}
+.ah h2{margin:0;font-size:1.2rem}
+.x{background:none;border:0;color:var(--ink);font-size:1.6rem;line-height:1}
+.items{flex:1;overflow-y:auto;padding:6px 16px}
+.row{display:grid;grid-template-columns:50px 1fr auto;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}
+.row .e{background:var(--bg);border-radius:12px;font-size:1.8rem;text-align:center}
+.qty{display:flex;align-items:center;gap:8px;margin-top:4px}
+.qty button{width:28px;height:28px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font-weight:700}
+.rm{background:none;border:0;color:var(--danger);font-size:.85rem}
+.empty{text-align:center;color:var(--muted);padding:40px 10px}
+.foot{padding:14px 16px;border-top:1px solid var(--line)}
+.tot{display:flex;justify-content:space-between;font-size:1.1rem;font-weight:800}
+.pts{color:var(--muted);font-size:.88rem;margin:2px 0 10px;min-height:1.2em}
+.co{width:100%;background:var(--brand);color:#fff;border:0;border-radius:14px;padding:14px;font-weight:800;font-size:1rem}
+.co:disabled{opacity:.4;cursor:not-allowed}
+.modal{position:fixed;inset:0;z-index:20;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.55);padding:20px}
+.modal.on{display:flex}
+.box{background:var(--surface);border-radius:16px;padding:30px 22px;max-width:360px;width:100%;text-align:center;animation:pop .35s}
+.box .big{font-size:3.5rem}
+.box h2{margin:6px 0;color:var(--brand)}
+.badge{display:inline-block;background:var(--accent);color:var(--accent-ink);border-radius:99px;padding:5px 14px;font-weight:800;font-size:.9rem;margin:6px 0 14px}
+@keyframes pop{from{transform:scale(.8);opacity:0}to{transform:none;opacity:1}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+</style>
+</head>
+<body>
+<header>
+  <div class="bar-top">
+    <a class="logo" href="#">Crank <span>&amp; Shaft</span></a>
+    <label class="search"><span class="sr">Search products</span>
+      <input id="q" type="search" placeholder="Hanap ka ba? Search wrenches, drills, tool kits…">
+    </label>
+    <button class="cart-btn" id="openBasket" aria-label="Open basket">🛒<b id="count">0</b></button>
+  </div>
+</header>
+
+<main>
+  <p class="hello" id="hello"></p>
+
+  <div class="perk"><span id="perkText"></span><div class="track"><i id="perkBar"></i></div></div>
+
+  <nav class="cats" id="cats" aria-label="Categories"></nav>
+
+  <div class="grid" id="grid"></div>
+  <p class="none" id="none" hidden>No items found. Try another word or category.</p>
+
+  <footer class="legal">
+    <b>Crank &amp; Shaft Shop</b><br>
+    Licensed by Crank &amp; Shaft Hardware Trading (DTI Business Name Reg. No. 7654321)<br>
+    Owned and operated by Allen James R. Paje · BIR TIN 000-123-456-000 · Registered in the Philippines<br>
+    © 2026 Crank &amp; Shaft. All rights reserved. Prototype made for an HCI course project.
+  </footer>
+</main>
+
+<div class="scrim" id="scrim"></div>
+<aside id="drawer" aria-label="Basket">
+  <div class="ah"><h2>My basket</h2><button class="x" id="closeBasket" aria-label="Close basket">×</button></div>
+  <div class="items" id="items"></div>
+  <div class="foot">
+    <div class="tot"><span>Total</span><span id="total">₱0.00</span></div>
+    <div class="pts" id="pts"></div>
+    <button class="co" id="checkout" disabled>Check Out</button>
+  </div>
+</aside>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="okTitle">
+  <div class="box">
+    <div class="big">✅</div>
+    <h2 id="okTitle">Check-Out Successfully!</h2>
+    <p id="okMsg"></p>
+    <div class="badge" id="okBadge"></div><br>
+    <button class="co" id="okBtn">Keep shopping</button>
+  </div>
+</div>
+<script>
+const PRODUCTS=[
+ {id:1,n:"Adjustable Wrench 10\"",c:"Hand Tools",p:249,o:399,e:"🔧",s:1820,r:4.8},
+ {id:2,n:"Claw Hammer",c:"Hand Tools",p:199,o:320,e:"🔨",s:2210,r:4.7},
+ {id:3,n:"Screwdriver Set (12 pcs)",c:"Hand Tools",p:299,o:499,e:"🪛",s:3150,r:4.9},
+ {id:4,n:"Hand Saw",c:"Hand Tools",p:225,o:350,e:"🪚",s:640,r:4.5},
+ {id:5,n:"Cordless Drill",c:"Power Tools",p:1899,o:2799,e:"🔋",s:412,r:4.6},
+ {id:6,n:"Angle Grinder",c:"Power Tools",p:1499,o:2299,e:"⚙️",s:288,r:4.5},
+ {id:7,n:"Bolt & Nut Set",c:"Fasteners",p:180,o:280,e:"🔩",s:2980,r:4.8},
+ {id:8,n:"Heavy-Duty Tool Box",c:"Storage",p:599,o:899,e:"🧰",s:1320,r:4.7},
+ {id:9,n:"Mechanic's Tool Kit",c:"Hand Tools",p:1299,o:1999,e:"🛠️",s:760,r:4.9},
+ {id:10,n:"Work Gloves",c:"Safety",p:99,o:150,e:"🧤",s:3520,r:4.8},
+ {id:11,n:"Safety Goggles",c:"Safety",p:129,o:199,e:"🥽",s:1405,r:4.7},
+ {id:12,n:"Tape Measure 5m",c:"Hand Tools",p:120,o:180,e:"📏",s:2760,r:4.8}
+];
+const CATS=["All","Hand Tools","Power Tools","Fasteners","Safety","Storage"];
+const FREE_SHIP=1500;
+let cart={},cat="All",term="";
+const $=id=>document.getElementById(id);
+const rm=n=>"₱"+n.toLocaleString("en-PH",{minimumFractionDigits:2,maximumFractionDigits:2});
+// Context-aware: use Philippine time (Asia/Manila)
+const manila=()=>new Date(new Date().toLocaleString("en-US",{timeZone:"Asia/Manila"}));
+
+const h=manila().getHours();
+$("hello").textContent=(h<12?"Magandang umaga":h<18?"Magandang hapon":"Magandang gabi")+" po! Welcome to Crank & Shaft.";
+
+
+// Categories
+$("cats").innerHTML=CATS.map(c=>`<button data-c="${c}" class="${c==="All"?"on":""}">${c}</button>`).join("");
+$("cats").onclick=e=>{const b=e.target.closest("button");if(!b)return;cat=b.dataset.c;
+  document.querySelectorAll("#cats button").forEach(x=>x.classList.toggle("on",x===b));grid();};
+$("q").oninput=e=>{term=e.target.value.toLowerCase().trim();grid();};
+
+function grid(){
+  const list=PRODUCTS.filter(p=>(cat==="All"||p.c===cat)&&p.n.toLowerCase().includes(term));
+  $("none").hidden=list.length>0;
+  $("grid").innerHTML=list.map(x=>`
+   <div class="card">
+    <span class="off">-${Math.round((1-x.p/x.o)*100)}%</span>
+    <div class="pic t${x.id%5}" aria-hidden="true">${x.e}</div>
+    <div class="info">
+     <div class="name">${x.n}</div>
+     <div class="meta">★ ${x.r} · ${x.s.toLocaleString()} sold</div>
+     <div class="price">${rm(x.p)}<s>${rm(x.o)}</s></div>
+     <button class="add" data-id="${x.id}">Add to basket</button>
+    </div>
+   </div>`).join("");
+}
+$("grid").onclick=e=>{
+  const b=e.target.closest(".add");if(!b)return;
+  const id=+b.dataset.id;cart[id]=(cart[id]||0)+1;
+  b.textContent="Added ✓";b.classList.add("done");
+  setTimeout(()=>{b.textContent="Add to basket";b.classList.remove("done")},1000);
+  render();
+};
+
+const subtotal=()=>Object.entries(cart).reduce((s,[id,q])=>s+PRODUCTS.find(p=>p.id==id).p*q,0);
+const qtyTotal=()=>Object.values(cart).reduce((a,b)=>a+b,0);
+
+function render(){
+  const t=subtotal(),c=qtyTotal();
+  $("count").textContent=c;
+  $("total").textContent=rm(t);
+  $("pts").textContent=c?`You will earn ${Math.floor(t/10)} points`:"";
+  $("checkout").disabled=!c;
+  $("perkBar").style.width=Math.min(100,t/FREE_SHIP*100)+"%";
+  $("perkText").textContent=t>=FREE_SHIP?"You have unlocked free shipping.":`Add ${rm(FREE_SHIP-t)} more for free shipping`;
+  const ids=Object.keys(cart);
+  $("items").innerHTML=ids.length?ids.map(id=>{
+    const p=PRODUCTS.find(x=>x.id==id),q=cart[id];
+    return `<div class="row"><div class="e">${p.e}</div>
+     <div><div class="name">${p.n}</div><div>${rm(p.p)}</div>
+     <div class="qty"><button data-a="minus" data-id="${id}" aria-label="Less">−</button><span>${q}</span><button data-a="plus" data-id="${id}" aria-label="More">+</button></div></div>
+     <button class="rm" data-a="del" data-id="${id}">Remove</button></div>`}).join("")
+   :`<div class="empty">🛒<br>Your basket is empty.<br>Add something you like!</div>`;
+}
+$("items").onclick=e=>{
+  const b=e.target.closest("button");if(!b)return;
+  const id=b.dataset.id,a=b.dataset.a;
+  if(a==="plus")cart[id]++;
+  if(a==="minus"){cart[id]--;if(cart[id]<1)delete cart[id];}
+  if(a==="del")delete cart[id];
+  render();
+};
+
+const open=v=>{$("drawer").classList.toggle("on",v);$("scrim").classList.toggle("on",v);};
+$("openBasket").onclick=()=>open(true);
+$("closeBasket").onclick=()=>open(false);
+$("scrim").onclick=()=>open(false);
+document.addEventListener("keydown",e=>{if(e.key==="Escape"){open(false);$("modal").classList.remove("on");}});
+
+$("checkout").onclick=()=>{
+  const t=subtotal();
+  $("okMsg").textContent=`Maraming salamat po! Your order of ${rm(t)} is on its way. You earned ${Math.floor(t/10)} points`;
+  $("okBadge").textContent=qtyTotal()>=5?"Super Shopper badge unlocked":"First Order badge";
+  cart={};render();open(false);
+  $("modal").classList.add("on");$("okBtn").focus();
+};
+$("okBtn").onclick=()=>$("modal").classList.remove("on");
+
+grid();render();
+</script>
+</body>
+</html>
